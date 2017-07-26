@@ -1,16 +1,47 @@
-Push greedy.c
-Find the least amount of change to receive back from x amount of dollars
-Prompts user for dollar amount
-Returns how many US coins it will take to match that amount
-# Please enter the commit message for your changes. Lines starting
-# with '#' will be ignored, and an empty message aborts the commit.
-# Explicit paths specified without -i or -o; assuming --only paths...
-# On branch master
-# Your branch is up-to-date with 'origin/master'.
-#
-# Changes to be committed:
-#	new file:   greedy.c
-#
-# Untracked files:
-#	greedy
-#
+#include <cs50.h>
+#include <math.h>
+#include <stdio.h>
+
+int main(void)
+{
+    int run = 1;
+    
+    while (run == 1)
+    {
+        printf("O hai! How much change is owed?\n");
+        float changeOwed = get_float(); // User inputs change
+        int coins = 0; // Counts number of coins
+        
+        changeOwed *= 100; // Turn dollar amount in cents
+        int truncChange = round(changeOwed);
+        
+        if (truncChange > 0)
+        {
+            while (truncChange >= 25)
+            {
+                truncChange -= 25;
+                coins++;
+            }
+            
+            while (truncChange >= 10 && truncChange < 25)
+            {
+                truncChange -= 10;
+                coins++;
+            }
+            
+            while (truncChange >= 5 && truncChange < 10)
+            {
+                truncChange -= 5;
+                coins++;
+            }
+            
+            while (truncChange >= 1 && truncChange < 5)
+            {
+                truncChange -= 1;
+                coins++;
+            }
+        }
+        
+        printf("%i\n", coins);
+    }
+}
